@@ -3,6 +3,9 @@
 #include <stdint.h>
 #include <float.h>
 
+#define test
+
+
 /// Υπολογισμός θερμοκρασιών πλάκας version 2
 
 #define ROWS 10 //Εδώ προσδιορίζονται ο αριθμός των γραμμών και στηλών του πίνακα καθώς και οι θερμοκρασίες της πλάκας σε global μορφή.
@@ -17,6 +20,14 @@ float TEMPERATURE_REST;
 //Η συνάρτηση αυτή παίρνει απο το πληκτρολόγιο τις αρχικές τιμές σε float μορφή.
 void SetValues()
 {
+
+#ifdef test
+    TEMPERATURE_UP=2.0;
+    TEMPERATURE_DOWN=2.0;
+    TEMPERATURE_LEFT=3.0;
+    TEMPERATURE_RIGHT=1.0;
+    TEMPERATURE_REST=1.0;
+#else // test
     printf("Give up side temperature:\n");
     scanf("%f", &TEMPERATURE_UP);
     printf("Give down side temperature:\n");
@@ -27,14 +38,15 @@ void SetValues()
     scanf("%f", &TEMPERATURE_RIGHT);
     printf("Give rest temperature:\n");
     scanf("%f", &TEMPERATURE_REST);
-
+#endif
 }
 // MATRIXES
 
 float m0[ROWS][COLS];
 float m1[ROWS][COLS];
-int m2[ROWS][COLS]; //ο κανονικοποιημένος πίνακας tου m0
+float m2[ROWS][COLS];
 float m_x_secs[ROWS][COLS];// function copy of m0 and change in x secods
+float diafores[ROWS][COLS];//
 
 //αρχικοποίση της m0
 void init_m0()
@@ -61,27 +73,35 @@ void init_m0()
         {
             m0[i][j]=TEMPERATURE_REST;
         }
+    for(i=0; i<ROWS; i++)
+        for(j=0; j<COLS; j++)
+        {
+            diafores[i][j]=0;
+        }
+
 }
 //Η συνάρτηση αυτή εκτυπώνει τον αρχικό πίνακα
 void printmatrix(float m[ROWS][COLS])
 {
+    printf("--------------------------------\n");
     for(int i=0; i<ROWS; i++)
     {
         for(int j=0; j<COLS; j++)
             printf("%.2f ", m[i][j]);
         printf("\n");
     }
+    printf("--------------------------------\n");
 }
-//Η συναρτηση αυτή εκτυπώνει τον κανονικοποιημένο πίνακα
-void print_matrix_of_integers(int m[ROWS][COLS])
-{
-    for(int i=0; i<ROWS; i++)
-    {
-        for(int j=0; j<COLS; j++)
-            printf("%i ", m[i][j]);
-        printf("\n");
-    }
-}
+////Η συναρτηση αυτή εκτυπώνει τον κανονικοποιημένο πίνακα
+//void print_matrix_of_integers(int m[ROWS][COLS])
+//{
+//    for(int i=0; i<ROWS; i++)
+//    {
+//        for(int j=0; j<COLS; j++)
+//            printf("%i ", m[i][j]);
+//        printf("\n");
+//    }
+//}
 
 
 //Αντιγράφει ένα μητρώο σε ένα άλλο.
@@ -100,20 +120,18 @@ void change(float New[ROWS][COLS], float Old[ROWS][COLS])
             New[i][j]=0.1*(Old[i-1][j-1]+Old[i-1][j]+Old[i-1][j+1]+Old[i][j-1]+2.0*Old[i][j]+Old[i][j+1]+Old[i+1][j-1]+Old[i+1][j]+Old[i+1][j+1]);
 }
 //Η συνάρτηση βρίσκει τη μέγιστη και ελάχιστη θερμοκρασία ενός πίνακα
-//void minmax(float m[ROWS][COLS], float*min, float* max)
-//{
-//    *min=1000000000.0;
-//    *max=0.0;
-//
-//    for(int i=0; i<ROWS; i++)
-//        for(int j=0; j<COLS; j++)
-//        {
-//            if(*min>m[i][j])
-//                *min=m[i][j];
-//            if(*max<m[i][j])
-//                *max=m[i][j];
-//        }
-//}
+float minmax(float m[ROWS][COLS])
+{
+    float max=-1000000000.0;
+
+    for(int i=0; i<ROWS; i++)
+        for(int j=0; j<COLS; j++)
+        {
+            if(max<m[i][j])
+                max=m[i][j];
+        }
+    return max;
+}
 
 //Η συνάρτηση επιστρέφει σε ποιά τάξη ανήκει η θερμοκρασία
 //int return_class_of_int(float mij, int min, int max, float du)
@@ -138,27 +156,19 @@ void change(float New[ROWS][COLS], float Old[ROWS][COLS])
 //
 
 //αθροιστική μεταβολή στοιχείων
-float abs_matrix_du(float before[ROWS][COLS],float after[ROWS][COLS]){
-    float d1;
+void diafora(float before[ROWS][COLS],float after[ROWS][COLS])
+{
     for(int i=0; i<ROWS; i++)
     {
         for(int j=0; j<COLS; j++)
         {
-            d1+=abs(abs(after[i][j])-abs(before[i][j]));
+            diafores[i][j]=abs(after[i][j]-before[i][j]);
+//        printf("%d %d %f %f %f\n",i,j,after[i][j],before[i][j],diafores[i][j]);
         }
     }
-    return d1;
+
 }
 
-void change_matrix_in_x_seconds(float m[ROWS][COLS],int t){
-    float mt[ROWS][COLS];
-    copy(mt,m0);
-    for (int i=0; i<t; i++)
-    {
-        change(mt,m);
-        copy(mt,m);
-    }
-}
 
 //count θερμοκρασιες στον πινακα
 int count_occur(int m_x_secs[ROWS][COLS], int value)
@@ -186,18 +196,26 @@ int main()
     SetValues();
     init_m0();
 
-    int t;
-    printf("Give me the second:");
+//    int t;
+//    printf("Give me the second:");
 
-    scanf("%d",&t);
+//scanf("%d",&t);
 
-    copy(m0,m_x_secs);
-
-    printmatrix(m_x_secs);
-
-    change_matrix_in_x_seconds(m_x_secs,t);
-
-    printmatrix(m_x_secs);
+    copy(m0,m1);
+    copy(m1,m2);
+    while(minmax(diafores)<1.0)
+    {
+//        printmatrix(m1);
+//        printmatrix(m2);
+        change(m2,m1);
+//        printmatrix(m1);
+//        printmatrix(m2);
+        diafora(m1,m2);
+//        printmatrix(diafores);
+//        exit(1);
+        copy(m2,m1);
+    }
+    printmatrix(m2);
 
     return 0;
 }
