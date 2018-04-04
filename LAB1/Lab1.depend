@@ -1,0 +1,81 @@
+# depslib dependency file v1.0
+1520879370 source:/home/maria/MYDOC/LA/C lab/Lab1/main.c
+	<stdio.h>
+	<stdlib.h>
+
+1520546072 source:/home/maria/MYDOC/LA/C lab/Lab1/Isoskelestriangle.c
+	<stdio.h>
+
+1520468710 source:/home/maria/MYDOC/LA/C lab/Lab1/Or8ogoniotriangle.c
+	<stdio.h>
+
+1520609826 source:/home/maria/MYDOC/LA/C lab/Lab1/Romvos.c
+	<stdio.h>
+
+1520465176 source:/home/maria/MYDOC/LA/C lab/Lab1/square.c
+	<stdio.h>
+
+1520546072 source:/home/a/Επιφάνεια εργασίας/11/Isoskelestriangle.c
+	<stdio.h>
+
+1520879480 source:/home/a/Επιφάνεια εργασίας/11/main.c
+	<stdio.h>
+	<stdlib.h>
+
+1520468710 source:/home/a/Επιφάνεια εργασίας/11/Or8ogoniotriangle.c
+	<stdio.h>
+
+1520609826 source:/home/a/Επιφάνεια εργασίας/11/Romvos.c
+	<stdio.h>
+
+1520465176 source:/home/a/Επιφάνεια εργασίας/11/square.c
+	<stdio.h>
+
+1520882250 source:/home/a/11/Isoskelestriangle.c
+	<stdio.h>
+
+1520882207 source:/home/a/11/Or8ogoniotriangle.c
+	<stdio.h>
+
+1520882250 source:/home/a/11/Romvos.c
+	<stdio.h>
+
+1520882195 source:/home/a/11/square.c
+	<stdio.h>
+
+1520882424 source:/home/a/11/main.c
+	<stdio.h>
+	<stdlib.h>
+
+1520882250 source:/home/maria/MYDOC/LAB1/Isoskelestriangle.c
+	<stdio.h>
+
+1520883453 source:/home/maria/MYDOC/LAB1/main.c
+	<stdio.h>
+	<stdlib.h>
+
+1520882206 source:/home/maria/MYDOC/LAB1/Or8ogoniotriangle.c
+	<stdio.h>
+
+1520882250 source:/home/maria/MYDOC/LAB1/Romvos.c
+	<stdio.h>
+
+1520882194 source:/home/maria/MYDOC/LAB1/square.c
+	<stdio.h>
+
+1520882250 source:/home/maria/MYDOC/C/LAB1/Isoskelestriangle.c
+	<stdio.h>
+
+1520883453 source:/home/maria/MYDOC/C/LAB1/main.c
+	<stdio.h>
+	<stdlib.h>
+
+1520882206 source:/home/maria/MYDOC/C/LAB1/Or8ogoniotriangle.c
+	<stdio.h>
+
+1520882250 source:/home/maria/MYDOC/C/LAB1/Romvos.c
+	<stdio.h>
+
+1520882194 source:/home/maria/MYDOC/C/LAB1/square.c
+	<stdio.h>
+

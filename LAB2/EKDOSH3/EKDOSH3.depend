@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1522784006 source:/home/maria/MYDOC/C/LAB2/EKDOSH3/main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<float.h>
+

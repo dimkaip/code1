@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1522662899 source:/home/maria/MYDOC/C/LAB2/EKDOSH1/EKDOSH1/main.c
+	<stdio.h>
+	<stdlib.h>
+
